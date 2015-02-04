@@ -9,7 +9,7 @@
 # All rights reserved - Do Not Redistribute
 #
 # Client must be installed before server(!)
-include_recipe 'wavefront::client'
+include_recipe 'foundationdb::client'
 server_temp_file = "#{node['foundationdb']['temp_dir']}/#{node['foundationdb']['server_file'][node['platform_family']]}"
 
 Chef::Log.info 'Installing FoundationDB server'

@@ -3,6 +3,10 @@ foundationdb CHANGELOG
 
 This file is used to list changes made in each version of the foundationdb cookbook.
 
+0.3.1
+-----
+- Kevin - Cookbook reference fixed.
+
 0.2.7
 -----
 - Kevin - Initial public release of foundationdb cookbook
