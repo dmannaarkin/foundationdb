@@ -6,7 +6,7 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-node.default['foundationdb']['base_url'] = "https://foundationdb.com/downloads/I_accept_the_FoundationDB_Community_License_Agreement/#{node['foundationdb']['version']}"
+node.default['foundationdb']['base_url'] = "#{node['foundationdb']['package_base_url']}/#{node['foundationdb']['version']}"
 
 # Debian/Ubuntu/Linux Mint
 node.default['foundationdb']['clients_file']['debian'] = "foundationdb-clients_#{node['foundationdb']['version']}#{node['foundationdb']['dash_string']}_amd64.deb"

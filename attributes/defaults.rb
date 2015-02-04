@@ -30,3 +30,6 @@ default['foundationdb']['log_dir'] = nil
 # cleanup removes any temporary files that were needed to set up the new version (.rpm files, .deb files, etc.)
 default['foundationdb']['cleanup'] = true
 default['foundationdb']['temp_dir'] = '/tmp'
+
+# Location of FoundationDB packages, version-independent, no trailing slash
+default['foundationdb']['package_base_url'] = 'https://foundationdb.com/downloads/I_accept_the_FoundationDB_Community_License_Agreement'

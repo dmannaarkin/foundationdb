@@ -59,7 +59,7 @@ Attributes
   <tr>
     <td><tt>['foundationdb']['processes']</tt></td>
     <td>List of dictionaries</td>
-    <td>Format:<br />
+    <td>Only 'port' is required. Format:<br />
       <pre>
 [
   {
