@@ -29,7 +29,7 @@ server_temp_file = "/tmp/#{server_file}"
 
 Chef::Log.info 'Installing FoundationDB server'
 remote_file server_temp_file do
-  source node['foundationdb']['server_source_url'][node['platform_family']]
+  source server_source_url
   owner 'root'
   group 'root'
   mode 00755
