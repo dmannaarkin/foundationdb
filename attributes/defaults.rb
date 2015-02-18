@@ -5,10 +5,6 @@
 #default['foundationdb']['install_type'] = 'upgrade'
 default['foundationdb']['install_type'] = 'full'
 
-# Manage the versions
-default['foundationdb']['version'] = '2.0.10'
-default['foundationdb']['dash_string'] = '-1'
-
 # ssd processes
 default['foundationdb']['processes'] = [
   {
@@ -19,17 +15,21 @@ default['foundationdb']['processes'] = [
 # Optional datacenter ID
 default['foundationdb']['datacenter_id'] = nil
 
-default['foundationdb']['make_public'] = true
-# When make_public accepts different options, they can be specified here
-default['foundationdb']['make_public_options'] = ''
-
 # These will change the default locations
 default['foundationdb']['data_dir'] = nil
 default['foundationdb']['log_dir'] = nil
 
-# cleanup removes any temporary files that were needed to set up the new version (.rpm files, .deb files, etc.)
-default['foundationdb']['cleanup'] = true
-default['foundationdb']['temp_dir'] = '/tmp'
+# Explicit package URLs, if available
+default['foundationdb']['clients_url'] = nil
+default['foundationdb']['server_url'] = nil
 
-# Location of FoundationDB packages, version-independent, no trailing slash
+default['foundationdb']['make_public'] = true
+# When make_public accepts different options, they can be specified here
+default['foundationdb']['make_public_options'] = ''
+
+# Manage the versions if explicit package URLs have not been provided.
+default['foundationdb']['version'] = '2.0.10'
+default['foundationdb']['dash_string'] = '-1'
+
+# Location of FoundationDB packages, no trailing slash (FDB less than 3.0.0)
 default['foundationdb']['package_base_url'] = 'https://foundationdb.com/downloads/I_accept_the_FoundationDB_Community_License_Agreement'

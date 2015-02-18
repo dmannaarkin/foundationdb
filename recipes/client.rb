@@ -6,25 +6,25 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-node.default['foundationdb']['base_url'] = "#{node['foundationdb']['package_base_url']}/#{node['foundationdb']['version']}"
+if node['foundationdb']['clients_url']
+  clients_source_url = node['foundationdb']['clients_url']
+else
+  base_url = "#{node['foundationdb']['package_base_url']}/#{node['foundationdb']['version']}/foundationdb-clients_#{node['foundationdb']['version']}#{node['foundationdb']['dash_string']}"
 
-# Debian/Ubuntu/Linux Mint
-node.default['foundationdb']['clients_file']['debian'] = "foundationdb-clients_#{node['foundationdb']['version']}#{node['foundationdb']['dash_string']}_amd64.deb"
-node.default['foundationdb']['server_file']['debian'] = "foundationdb-server_#{node['foundationdb']['version']}#{node['foundationdb']['dash_string']}_amd64.deb"
-node.default['foundationdb']['clients_source_url']['debian'] = "#{node['foundationdb']['base_url']}/#{node['foundationdb']['clients_file']['debian']}"
-node.default['foundationdb']['server_source_url']['debian'] = "#{node['foundationdb']['base_url']}/#{node['foundationdb']['server_file']['debian']}"
+  case node['platform_family']
+  when 'debian'
+    clients_source_url = "#{base_url}_amd64.deb"
+  when 'rhel', 'fedora'
+    clients_source_url = "#{base_url}.x86_64.rpm"
+  end
+end
 
-# RHEL/CentOS/Amazon Linux/Oracle Linux/Scientific Linux
-node.default['foundationdb']['clients_file']['rhel'] = "foundationdb-clients-#{node['foundationdb']['version']}#{node['foundationdb']['dash_string']}.x86_64.rpm"
-node.default['foundationdb']['server_file']['rhel'] = "foundationdb-server-#{node['foundationdb']['version']}#{node['foundationdb']['dash_string']}.x86_64.rpm"
-node.default['foundationdb']['clients_source_url']['rhel'] = "#{node['foundationdb']['base_url']}/#{node['foundationdb']['clients_file']['rhel']}"
-node.default['foundationdb']['server_source_url']['rhel'] = "#{node['foundationdb']['base_url']}/#{node['foundationdb']['server_file']['rhel']}"
-
-clients_temp_file = "#{node['foundationdb']['temp_dir']}/#{node['foundationdb']['clients_file'][node['platform_family']]}"
+clients_file = clients_source_url.split("/").last
+clients_temp_file = "/tmp/#{clients_file}"
 
 Chef::Log.info 'Installing FoundationDB client'
 remote_file clients_temp_file do
-  source node['foundationdb']['clients_source_url'][node['platform_family']]
+  source clients_source_url
   owner 'root'
   group 'root'
   mode 00755
@@ -36,7 +36,7 @@ when 'debian'
     source clients_temp_file
     action [:install]
   end
-when 'rhel'
+when 'rhel', 'fedora'
   rpm_package 'foundationdb-clients' do
     source clients_temp_file
     action [:install]
@@ -52,8 +52,6 @@ directory '/etc/foundationdb' do
 end
 
 # Delete temp files
-if node['foundationdb']['cleanup']
-  file clients_temp_file do
-    action :delete
-  end
+file clients_temp_file do
+  action :delete
 end

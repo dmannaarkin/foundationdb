@@ -10,7 +10,22 @@
 #
 # Client must be installed before server(!)
 include_recipe 'foundationdb::client'
-server_temp_file = "#{node['foundationdb']['temp_dir']}/#{node['foundationdb']['server_file'][node['platform_family']]}"
+
+if node['foundationdb']['server_url']
+  server_source_url = node['foundationdb']['server_url']
+else
+  base_url = "#{node['foundationdb']['package_base_url']}/#{node['foundationdb']['version']}/foundationdb-server_#{node['foundationdb']['version']}#{node['foundationdb']['dash_string']}"
+
+  case node['platform_family']
+  when 'debian'
+    server_source_url = "#{base_url}_amd64.deb"
+  when 'rhel', 'fedora'
+    server_source_url = "#{base_url}.x86_64.rpm"
+  end
+end
+
+server_file = server_source_url.split("/").last
+server_temp_file = "/tmp/#{server_file}"
 
 Chef::Log.info 'Installing FoundationDB server'
 remote_file server_temp_file do
@@ -185,8 +200,6 @@ if node['foundationdb']['install_type'] == 'full'
 end
 
 # Delete temp files
-if node['foundationdb']['cleanup']
-  file server_temp_file do
-    action :delete
-  end
+file server_temp_file do
+  action :delete
 end

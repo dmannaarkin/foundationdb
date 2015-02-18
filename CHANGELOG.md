@@ -3,6 +3,11 @@ foundationdb CHANGELOG
 
 This file is used to list changes made in each version of the foundationdb cookbook.
 
+0.4.0
+-----
+- Kevin - 1) Added direct URL attributes for packages.
+          2) Eliminated some dubious attributes.
+
 0.3.1
 -----
 - Kevin - Cookbook reference fixed.
