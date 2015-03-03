@@ -3,6 +3,10 @@ foundationdb CHANGELOG
 
 This file is used to list changes made in each version of the foundationdb cookbook.
 
+0.4.2
+-----
+- Kevin - Trying force-confold for upgrades.
+
 0.4.1
 -----
 - Kevin - Fixed server_source_url link.

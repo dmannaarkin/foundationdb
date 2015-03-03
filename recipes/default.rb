@@ -46,6 +46,7 @@ end
 case node['platform_family']
 when 'debian'
   dpkg_package 'foundationdb-server' do
+    options '--force-confold'
     source server_temp_file
     action [:install]
   end
