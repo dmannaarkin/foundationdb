@@ -11,28 +11,24 @@
 # Client must be installed before server(!)
 include_recipe 'foundationdb::client'
 
-if node['foundationdb']['server_url']
-  server_source_url = node['foundationdb']['server_url']
-else
-  base_url = "#{node['foundationdb']['package_base_url']}/#{node['foundationdb']['version']}/foundationdb-server_#{node['foundationdb']['version']}#{node['foundationdb']['dash_string']}"
-
-  case node['platform_family']
-  when 'debian'
-    server_source_url = "#{base_url}_amd64.deb"
-  when 'rhel', 'fedora'
-    server_source_url = "#{base_url}.x86_64.rpm"
-  end
-end
-
-server_file = server_source_url.split("/").last
-server_temp_file = "/tmp/#{server_file}"
-
 Chef::Log.info 'Installing FoundationDB server'
-remote_file server_temp_file do
-  source server_source_url
-  owner 'root'
-  group 'root'
-  mode 00755
+if node['foundationdb']['server_url']
+  server_file = node['foundationdb']['server_url'].split("/").last
+  server_temp_file = "/tmp/#{server_file}"
+
+  remote_file server_temp_file do
+    source server_source_url
+    mode 00755
+  end
+else
+  server_file = "foundationdb-server_#{node['foundationdb']['version']}-1_amd64.deb"
+  server_temp_file = "/tmp/#{server_file}"
+
+  cookbook_file server_file do
+    path server_temp_file
+    mode 00755
+    action :create
+  end
 end
 
 # See if FoundationDB has been previously installed (fdb.cluster exists)
@@ -43,27 +39,13 @@ else
   initial_install = true
 end
 
-case node['platform_family']
-when 'debian'
-  dpkg_package 'foundationdb-server' do
-    options '--force-confold'
-    source server_temp_file
-    action [:install]
-  end
-when 'rhel', 'fedora'
-  rpm_package 'foundationdb-server' do
-    source server_temp_file
-    action [:install]
-  end
+dpkg_package 'foundationdb-server' do
+  options '--force-confold'
+  source server_temp_file
+  action [:install]
 end
 
 if node['foundationdb']['install_type'] == 'full'
-  execute 'Make /etc/foundationdb writable by all' do
-    command 'chmod 777 /etc/foundationdb'
-    action :run
-  end
-
-  # Other server options
   foundationdb_conf = '/etc/foundationdb/foundationdb.conf'
 
   if node['foundationdb']['data_dir']
@@ -121,7 +103,7 @@ if node['foundationdb']['install_type'] == 'full'
     ruby_block 'Edit foundationdb.conf fdbserver.port' do
       block do
         rc = Chef::Util::FileEdit.new(foundationdb_conf)
-        rc.search_file_replace_line("^.fdbserver\.4500.", "#[fdbserver.4500]")
+        rc.search_file_replace_line("^.fdbserver\.4500.", "##[fdbserver.4500]")
         rc.write_file
       end
     end

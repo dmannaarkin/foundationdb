@@ -29,7 +29,3 @@ default['foundationdb']['make_public_options'] = ''
 
 # Manage the versions if explicit package URLs have not been provided.
 default['foundationdb']['version'] = '2.0.10'
-default['foundationdb']['dash_string'] = '-1'
-
-# Location of FoundationDB packages, no trailing slash (FDB less than 3.0.0)
-default['foundationdb']['package_base_url'] = 'https://foundationdb.com/downloads/I_accept_the_FoundationDB_Community_License_Agreement'

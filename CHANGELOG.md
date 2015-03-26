@@ -3,6 +3,10 @@ foundationdb CHANGELOG
 
 This file is used to list changes made in each version of the foundationdb cookbook.
 
+0.5.0
+-----
+- Kevin - Hard-coded deb packages due to FoundationDB binaries no longer being generally available.
+
 0.4.2
 -----
 - Kevin - Trying force-confold for upgrades.
