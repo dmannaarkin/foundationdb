@@ -17,7 +17,7 @@ if node['foundationdb']['server_url']
   server_temp_file = "/tmp/#{server_file}"
 
   remote_file server_temp_file do
-    source server_source_url
+    source node['foundationdb']['server_url']
     mode 00755
   end
 else
