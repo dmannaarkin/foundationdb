@@ -31,6 +31,11 @@ dpkg_package 'foundationdb-clients' do
   action [:install]
 end
 
+directory '/etc/foundationdb' do
+  mode 00777
+  action :create
+end
+
 # Delete temp files
 file clients_temp_file do
   action :delete
