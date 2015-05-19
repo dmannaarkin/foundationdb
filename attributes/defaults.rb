@@ -19,13 +19,17 @@ default['foundationdb']['datacenter_id'] = nil
 default['foundationdb']['data_dir'] = nil
 default['foundationdb']['log_dir'] = nil
 
-# Explicit package URLs, if available
+# Explicit package URLs, if available; if these are provided, version and
+#   base_url are ignored.
 default['foundationdb']['clients_url'] = nil
 default['foundationdb']['server_url'] = nil
+
+# Manage the versions if explicit package URLs have not been provided.
+default['foundationdb']['version'] = '2.0.10'
+
+# Base URL for packages, if available; path up to, but not including, slash
+default['foundationdb']['base_url'] = ''
 
 default['foundationdb']['make_public'] = true
 # When make_public accepts different options, they can be specified here
 default['foundationdb']['make_public_options'] = ''
-
-# Manage the versions if explicit package URLs have not been provided.
-default['foundationdb']['version'] = '2.0.10'

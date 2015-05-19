@@ -24,10 +24,17 @@ else
   server_file = "foundationdb-server_#{node['foundationdb']['version']}-1_amd64.deb"
   server_temp_file = "/tmp/#{server_file}"
 
-  cookbook_file server_file do
-    path server_temp_file
-    mode 00755
-    action :create
+  if node['foundationdb']['base_url']
+    remote_file server_temp_file do
+      source "#{node['foundationdb']['base_url']}/#{server_file}"
+      mode 00755
+    end
+  else
+    cookbook_file server_file do
+      path server_temp_file
+      mode 00755
+      action :create
+    end
   end
 end
 
