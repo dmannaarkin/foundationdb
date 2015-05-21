@@ -28,7 +28,7 @@ default['foundationdb']['server_url'] = nil
 default['foundationdb']['version'] = '2.0.10'
 
 # Base URL for packages, if available; path up to, but not including, slash
-default['foundationdb']['base_url'] = ''
+default['foundationdb']['base_url'] = nil
 
 default['foundationdb']['make_public'] = true
 # When make_public accepts different options, they can be specified here
