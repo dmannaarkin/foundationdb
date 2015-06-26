@@ -4,7 +4,11 @@ This cookbook installs and configure FoundationDB.
 
 Requirements
 ------------
-<none>
+If FoundationDB packages are not provided via URLs, they must be added to the
+repository in <root>/files/default/.
+The names of the files should resemble:
+- foundationdb-clients_2.0.10-1_amd64.deb
+- foundationdb-server_2.0.10-1_amd64.deb
 
 Attributes
 ----------
