@@ -5,6 +5,47 @@
 #default['foundationdb']['install_type'] = 'upgrade'
 default['foundationdb']['install_type'] = 'full'
 
+# Options
+default['foundationdb']['options'] = [
+  {
+    'name' => 'fdbmonitor',
+    'options' => {
+      'user' => 'foundationdb',
+      'group' => 'foundationdb'
+    }
+  },
+  {
+    'name' => 'general',
+    'options' => {
+      'restart_delay' => 60,
+      'cluster_file' => '/etc/foundationdb/fdb.cluster'
+    }
+  },
+  {
+    'name' => 'fdbserver',
+    'options' => {
+      'command' = '/usr/sbin/fdbserver',
+      'public_address' = 'auto:$ID',
+      'listen_address' = 'public',
+      'datadir' = '/mnt/fdb/$ID',
+      'logdir' = '/mnt/logs/fdb',
+      '# logsize' = '10MiB',
+      '# maxlogssize' = '100MiB',
+      '# machine_id' = '',
+      '# datacenter_id' = '',
+      '# class' = '',
+      '# memory' = '8GiB',
+      '# storage_memory' = '1GiB'
+    }
+  },
+  {
+    'name' => 'backup_agent',
+    'options' => {
+      'command' => '/usr/lib/foundationdb/backup_agent/backup_agent'
+    }
+  }
+]
+
 # ssd processes
 default['foundationdb']['processes'] = [
   {

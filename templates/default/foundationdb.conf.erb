@@ -1,0 +1,43 @@
+## foundationdb.conf, built by Chef foundationdb cookbook
+##
+## Configuration file for FoundationDB server processes
+## Full documentation is available at
+## https://foundationdb.com/documentation/configuration.html#foundationdb-conf
+
+<% node['foundationdb']['options'].each do |section| %>
+[<%= section['name'] %>]
+  <% section['options'].each do |option| %>
+    <% if section['options'][option] %>
+<%= option %> = <%= section['options'][option] %>
+    <% end %>
+  <% end %>
+<% end %>
+
+[backup_agent.1]
+
+## fdbserver processes
+## Parameters set here override defaults from the [fdbserver] section
+<% node['foundationdb']['processes'].each do |process_set| %>
+  <% if process_set.has_key?(:count) %>
+    <% count = process_set['count'] %>
+  <% else %>
+    <% count = 1 %>
+  <% end %>
+  <% (1..count).each do |i| %>
+# Process port <%= process_set[port] %>
+[fdbserver.<%= process_set[port] %>]
+    <% if process_set.has_key(:file) %>
+cluster_file = <%= process_set['file'] %>
+    <% end %>
+    <% if process_set.has_key(:memory) %>
+memory = <%= process_set['memory'] %>
+    <% end %>
+    <% if process_set.has_key(:storage_memory) %>
+storage_memory = <%= process_set['storage_memory'] %>
+    <% end %>
+    <% if process_set.has_key(:class) %>
+class = <%= process_set['class'] %>
+    <% end %>
+
+  <% end %>
+<% end %>
