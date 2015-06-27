@@ -24,18 +24,18 @@ default['foundationdb']['options'] = [
   {
     'name' => 'fdbserver',
     'options' => {
-      'command' = '/usr/sbin/fdbserver',
-      'public_address' = 'auto:$ID',
-      'listen_address' = 'public',
-      'datadir' = '/mnt/fdb/$ID',
-      'logdir' = '/mnt/logs/fdb',
-      '# logsize' = '10MiB',
-      '# maxlogssize' = '100MiB',
-      '# machine_id' = '',
-      '# datacenter_id' = '',
-      '# class' = '',
-      '# memory' = '8GiB',
-      '# storage_memory' = '1GiB'
+      'command' => '/usr/sbin/fdbserver',
+      'public_address' => 'auto:$ID',
+      'listen_address' => 'public',
+      'datadir' => '/mnt/fdb/$ID',
+      'logdir' => '/mnt/logs/fdb',
+      '# logsize' => '10MiB',
+      '# maxlogssize' => '100MiB',
+      '# machine_id' => '',
+      '# datacenter_id' => '',
+      '# class' => '',
+      '# memory' => '8GiB',
+      '# storage_memory' => '1GiB'
     }
   },
   {
