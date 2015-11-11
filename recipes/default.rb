@@ -8,6 +8,8 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+require 'digest/md5'
+
 # Client must be installed before server(!)
 include_recipe 'foundationdb::client'
 
@@ -93,13 +95,21 @@ if node['foundationdb']['install_type'] == 'full'
     end
   end
 
+  if node['foundationdb']['machine_id']
+    ruby_block 'Edit foundationdb.conf machine_id' do
+      block do
+        rc = Chef::Util::FileEdit.new(foundationdb_conf)
+        rc.search_file_replace_line('# machine_id =.*', "machine_id = #{node['foundationdb']['machine_id']}")
+        rc.write_file
+      end
+    end
+  end
+
   if node['foundationdb']['datacenter_id']
     ruby_block 'Edit foundationdb.conf datacenter_id' do
       block do
         rc = Chef::Util::FileEdit.new(foundationdb_conf)
-        rc.search_file_replace_line('# datacenter_id =.*', 'datacenter_id = ')
-        rc.write_file
-        rc.search_file_replace_line('datacenter_id =.*', "datacenter_id = #{node['foundationdb']['datacenter_id']}")
+        rc.search_file_replace_line('# datacenter_id =.*', "datacenter_id = #{node['foundationdb']['datacenter_id']}")
         rc.write_file
       end
     end

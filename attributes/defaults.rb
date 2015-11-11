@@ -55,6 +55,8 @@ default['foundationdb']['processes'] = [
 
 # Optional datacenter ID
 default['foundationdb']['datacenter_id'] = nil
+# Optional machine ID
+default['foundationdb']['machine_id'] = Digest::MD5.hexdigest(node.name)[0..15]
 
 # These will change the default locations
 default['foundationdb']['data_dir'] = nil
