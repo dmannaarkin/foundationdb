@@ -95,7 +95,7 @@ if node['foundationdb']['install_type'] == 'full'
     end
   end
 
-  if node['foundationdb']['machine_id']
+  if node['foundationdb']['machine_id'] and node['foundationdb']['machine_id'] != ''
     ruby_block 'Edit foundationdb.conf machine_id' do
       block do
         rc = Chef::Util::FileEdit.new(foundationdb_conf)
@@ -105,7 +105,7 @@ if node['foundationdb']['install_type'] == 'full'
     end
   end
 
-  if node['foundationdb']['datacenter_id']
+  if node['foundationdb']['datacenter_id'] and node['foundationdb']['datacenter_id'] != ''
     ruby_block 'Edit foundationdb.conf datacenter_id' do
       block do
         rc = Chef::Util::FileEdit.new(foundationdb_conf)
