@@ -24,6 +24,7 @@ default['foundationdb']['fdbserver']['datacenter_id'] = nil
 default['foundationdb']['fdbserver']['class'] = nil
 default['foundationdb']['fdbserver']['memory'] = nil  # '8GiB'
 default['foundationdb']['fdbserver']['storage_memory'] = nil  # '1GiB'
+default['foundationdb']['fdbserver']['knobs'] = {}
 
 default['foundationdb']['backup_agent']['command'] = '/usr/lib/foundationdb/backup_agent/backup_agent'
 default['foundationdb']['backup_agent']['logdir'] = '/mnt/logs/fdb'

@@ -40,6 +40,11 @@ memory = <%= node['foundationdb']['fdbserver']['memory'] %>
 <% if node['foundationdb']['fdbserver']['storage_memory'] %>
 storage_memory = <%= node['foundationdb']['fdbserver']['storage_memory'] %>
 <% end %>
+<% node['foundationdb']['fdbserver']['knobs'].each do |knob| %>
+  <% if node['foundationdb']['fdbserver']['knobs'][knob] %>
+<%= knob %> = <%= node['foundationdb']['fdbserver']['knobs'][knob] %>
+  <% end %>
+<% end %>
 
 [backup_agent]
 command = <%= node['foundationdb']['backup_agent']['command'] %>
