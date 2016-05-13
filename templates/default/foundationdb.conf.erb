@@ -58,16 +58,16 @@ logdir = <%= node['foundationdb']['backup_agent']['logdir'] %>
   <% (1..count).each do |i| %>
 # Process port <%= process_set['port'] %>
 [fdbserver.<%= process_set['port'] %>]
-    <% if process_set.has_key(:file) %>
+    <% if process_set.has_key?(:file) %>
 cluster_file = <%= process_set['file'] %>
     <% end %>
-    <% if process_set.has_key(:memory) %>
+    <% if process_set.has_key?(:memory) %>
 memory = <%= process_set['memory'] %>
     <% end %>
-    <% if process_set.has_key(:storage_memory) %>
+    <% if process_set.has_key?(:storage_memory) %>
 storage_memory = <%= process_set['storage_memory'] %>
     <% end %>
-    <% if process_set.has_key(:class) %>
+    <% if process_set.has_key?(:class) %>
 class = <%= process_set['class'] %>
     <% end %>
 
