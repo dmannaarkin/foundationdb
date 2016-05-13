@@ -1,17 +1,49 @@
-## foundationdb.conf, built by Chef foundationdb cookbook
+## foundationdb.conf -- kp gen
 ##
 ## Configuration file for FoundationDB server processes
-## Full documentation is available at
+## Full documentation WAS available at
 ## https://foundationdb.com/documentation/configuration.html#foundationdb-conf
 
-<% node['foundationdb']['options'].each do |section| %>
-[<%= section['name'] %>]
-  <% section['options'].each do |option| %>
-    <% if section['options'][option] %>
-<%= option %> = <%= section['options'][option] %>
-    <% end %>
-  <% end %>
+[fdbmonitor]
+user = <%= node['foundationdb']['fdbmonitor']['user'] %>
+group = <%= node['foundationdb']['fdbmonitor']['group'] %>
+
+[general]
+restart_delay = <%= node['foundationdb']['general']['restart_delay'] %>
+cluster_file = <%= node['foundationdb']['general']['cluster_file'] %>
+
+## Default parameters for individual fdbserver processes
+[fdbserver]
+command = <%= node['foundationdb']['fdbserver']['command'] %>
+public_address = <%= node['foundationdb']['fdbserver']['public_address'] %>
+listen_address = <%= node['foundationdb']['fdbserver']['listen_address'] %>
+datadir = <%= node['foundationdb']['fdbserver']['datadir'] %>
+logdir = <%= node['foundationdb']['fdbserver']['logdir'] %>
+<% if node['foundationdb']['fdbserver']['logsize'] %>
+logsize = <%= node['foundationdb']['fdbserver']['logsize'] %>
 <% end %>
+<% if node['foundationdb']['fdbserver']['maxlogssize'] %>
+maxlogssize = <%= node['foundationdb']['fdbserver']['maxlogssize'] %>
+<% end %>
+<% if node['foundationdb']['fdbserver']['machine_id'] %>
+machine_id = <%= node['foundationdb']['fdbserver']['machine_id'] %>
+<% end %>
+<% if node['foundationdb']['fdbserver']['datacenter_id'] %>
+datacenter_id = <%= node['foundationdb']['fdbserver']['datacenter_id'] %>
+<% end %>
+<% if node['foundationdb']['fdbserver']['class'] %>
+class = <%= node['foundationdb']['fdbserver']['class'] %>
+<% end %>
+<% if node['foundationdb']['fdbserver']['memory'] %>
+memory = <%= node['foundationdb']['fdbserver']['memory'] %>
+<% end %>
+<% if node['foundationdb']['fdbserver']['storage_memory'] %>
+storage_memory = <%= node['foundationdb']['fdbserver']['storage_memory'] %>
+<% end %>
+
+[backup_agent]
+command = <%= node['foundationdb']['backup_agent']['command'] %>
+logdir = <%= node['foundationdb']['backup_agent']['logdir'] %>
 
 [backup_agent.1]
 
