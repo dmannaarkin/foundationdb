@@ -65,6 +65,11 @@ if node['foundationdb']['install_type'] == 'full' and not initial_install
     else
       process_id = 'local'
     end
+    if process.has_key?(:string)
+      process_string = process['string']
+    else
+      process_string = 'fdbstring'
+    end
     if process.has_key?(:file)
       file process['file'] do
         content "#{process_id}:#{process_string}@#{node['ipaddress']}:#{fdb_port}"
