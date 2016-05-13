@@ -60,6 +60,11 @@ if node['foundationdb']['install_type'] == 'full' and not initial_install
   # Create new cluster files
   node['foundationdb']['processes'].each do |process|
     fdb_port = process['port']
+    if process.has_key?(:id)
+      process_id = process['id']
+    else
+      process_id = 'local'
+    end
     if process.has_key?(:file)
       file process['file'] do
         content "#{process_id}:#{process_string}@#{node['ipaddress']}:#{fdb_port}"
