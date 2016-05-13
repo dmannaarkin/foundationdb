@@ -56,8 +56,9 @@ logdir = <%= node['foundationdb']['backup_agent']['logdir'] %>
     <% count = 1 %>
   <% end %>
   <% (1..count).each do |i| %>
-# Process port <%= process_set['port'] %>
-[fdbserver.<%= process_set['port'] %>]
+<% process_port = process_set['port'] - 1 + i %>
+# Process port <%= process_port %>
+[fdbserver.<%= process_port %>]
     <% if process_set.has_key?(:file) %>
 cluster_file = <%= process_set['file'] %>
     <% end %>
