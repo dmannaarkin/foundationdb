@@ -83,7 +83,6 @@ if node['foundationdb']['install_type'] == 'full' and not initial_install
 
   # Create log directories
   [
-    node['foundationdb']['fdbserver']['datadir'],
     node['foundationdb']['fdbserver']['logdir'],
     node['foundationdb']['backup_agent']['logdir']
   ].each do |directory_location|
