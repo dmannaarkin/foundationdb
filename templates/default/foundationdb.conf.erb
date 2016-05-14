@@ -19,29 +19,29 @@ public_address = <%= node['foundationdb']['fdbserver']['public_address'] %>
 listen_address = <%= node['foundationdb']['fdbserver']['listen_address'] %>
 datadir = <%= node['foundationdb']['fdbserver']['datadir'] %>
 logdir = <%= node['foundationdb']['fdbserver']['logdir'] %>
-<% if node['foundationdb']['fdbserver']['logsize'].present? %>
+<% if node['foundationdb']['fdbserver']['logsize'] != '' %>
 logsize = <%= node['foundationdb']['fdbserver']['logsize'] %>
 <% end %>
-<% if node['foundationdb']['fdbserver']['maxlogssize'].present? %>
+<% if node['foundationdb']['fdbserver']['maxlogssize'] != '' %>
 maxlogssize = <%= node['foundationdb']['fdbserver']['maxlogssize'] %>
 <% end %>
-<% if node['foundationdb']['fdbserver']['machine_id'].present? %>
+<% if node['foundationdb']['fdbserver']['machine_id'] != '' %>
 machine_id = <%= node['foundationdb']['fdbserver']['machine_id'] %>
 <% end %>
-<% if node['foundationdb']['fdbserver']['datacenter_id'].present? %>
+<% if node['foundationdb']['fdbserver']['datacenter_id'] != '' %>
 datacenter_id = <%= node['foundationdb']['fdbserver']['datacenter_id'] %>
 <% end %>
-<% if node['foundationdb']['fdbserver']['class'].present? %>
+<% if node['foundationdb']['fdbserver']['class'] != '' %>
 class = <%= node['foundationdb']['fdbserver']['class'] %>
 <% end %>
-<% if node['foundationdb']['fdbserver']['memory'].present? %>
+<% if node['foundationdb']['fdbserver']['memory'] != '' %>
 memory = <%= node['foundationdb']['fdbserver']['memory'] %>
 <% end %>
-<% if node['foundationdb']['fdbserver']['storage_memory'].present? %>
+<% if node['foundationdb']['fdbserver']['storage_memory'] != '' %>
 storage_memory = <%= node['foundationdb']['fdbserver']['storage_memory'] %>
 <% end %>
 <% node['foundationdb']['fdbserver']['knobs'].each do |knob| %>
-  <% if node['foundationdb']['fdbserver']['knobs'][knob].present? %>
+  <% if node['foundationdb']['fdbserver']['knobs'][knob] != '' %>
 <%= knob %> = <%= node['foundationdb']['fdbserver']['knobs'][knob] %>
   <% end %>
 <% end %>
