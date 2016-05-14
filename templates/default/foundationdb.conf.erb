@@ -19,7 +19,7 @@ public_address = <%= node['foundationdb']['fdbserver']['public_address'] %>
 listen_address = <%= node['foundationdb']['fdbserver']['listen_address'] %>
 datadir = <%= node['foundationdb']['fdbserver']['datadir'] %>
 logdir = <%= node['foundationdb']['fdbserver']['logdir'] %>
-<% if node['foundationdb']['fdbserver']['logsize'] != '' %>
+<% if node['foundationdb']['fdbserver']['logsize'] and node['foundationdb']['fdbserver']['logsize'] != '' %>
 logsize = <%= node['foundationdb']['fdbserver']['logsize'] %>
 <% end %>
 <% if node['foundationdb']['fdbserver']['maxlogssize'] and node['foundationdb']['fdbserver']['maxlogssize'] != '' %>
