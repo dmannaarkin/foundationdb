@@ -19,29 +19,29 @@ public_address = <%= node['foundationdb']['fdbserver']['public_address'] %>
 listen_address = <%= node['foundationdb']['fdbserver']['listen_address'] %>
 datadir = <%= node['foundationdb']['fdbserver']['datadir'] %>
 logdir = <%= node['foundationdb']['fdbserver']['logdir'] %>
-<% if node['foundationdb']['fdbserver']['logsize'] %>
+<% if node['foundationdb']['fdbserver']['logsize'].present? %>
 logsize = <%= node['foundationdb']['fdbserver']['logsize'] %>
 <% end %>
-<% if node['foundationdb']['fdbserver']['maxlogssize'] %>
+<% if node['foundationdb']['fdbserver']['maxlogssize'].present? %>
 maxlogssize = <%= node['foundationdb']['fdbserver']['maxlogssize'] %>
 <% end %>
-<% if node['foundationdb']['fdbserver']['machine_id'] %>
+<% if node['foundationdb']['fdbserver']['machine_id'].present? %>
 machine_id = <%= node['foundationdb']['fdbserver']['machine_id'] %>
 <% end %>
-<% if node['foundationdb']['fdbserver']['datacenter_id'] %>
+<% if node['foundationdb']['fdbserver']['datacenter_id'].present? %>
 datacenter_id = <%= node['foundationdb']['fdbserver']['datacenter_id'] %>
 <% end %>
-<% if node['foundationdb']['fdbserver']['class'] %>
+<% if node['foundationdb']['fdbserver']['class'].present? %>
 class = <%= node['foundationdb']['fdbserver']['class'] %>
 <% end %>
-<% if node['foundationdb']['fdbserver']['memory'] %>
+<% if node['foundationdb']['fdbserver']['memory'].present? %>
 memory = <%= node['foundationdb']['fdbserver']['memory'] %>
 <% end %>
-<% if node['foundationdb']['fdbserver']['storage_memory'] %>
+<% if node['foundationdb']['fdbserver']['storage_memory'].present? %>
 storage_memory = <%= node['foundationdb']['fdbserver']['storage_memory'] %>
 <% end %>
 <% node['foundationdb']['fdbserver']['knobs'].each do |knob| %>
-  <% if node['foundationdb']['fdbserver']['knobs'][knob] %>
+  <% if node['foundationdb']['fdbserver']['knobs'][knob].present? %>
 <%= knob %> = <%= node['foundationdb']['fdbserver']['knobs'][knob] %>
   <% end %>
 <% end %>
