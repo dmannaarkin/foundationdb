@@ -22,26 +22,26 @@ logdir = <%= node['foundationdb']['fdbserver']['logdir'] %>
 <% if node['foundationdb']['fdbserver']['logsize'] != '' %>
 logsize = <%= node['foundationdb']['fdbserver']['logsize'] %>
 <% end %>
-<% if node['foundationdb']['fdbserver']['maxlogssize'] != '' %>
+<% if node['foundationdb']['fdbserver']['maxlogssize'] and node['foundationdb']['fdbserver']['maxlogssize'] != '' %>
 maxlogssize = <%= node['foundationdb']['fdbserver']['maxlogssize'] %>
 <% end %>
-<% if node['foundationdb']['fdbserver']['machine_id'] != '' %>
+<% if node['foundationdb']['fdbserver']['machine_id'] and node['foundationdb']['fdbserver']['machine_id'] != '' %>
 machine_id = <%= node['foundationdb']['fdbserver']['machine_id'] %>
 <% end %>
-<% if node['foundationdb']['fdbserver']['datacenter_id'] != '' %>
+<% if node['foundationdb']['fdbserver']['datacenter_id'] and node['foundationdb']['fdbserver']['datacenter_id'] != '' %>
 datacenter_id = <%= node['foundationdb']['fdbserver']['datacenter_id'] %>
 <% end %>
-<% if node['foundationdb']['fdbserver']['class'] != '' %>
+<% if node['foundationdb']['fdbserver']['class'] and node['foundationdb']['fdbserver']['class'] != '' %>
 class = <%= node['foundationdb']['fdbserver']['class'] %>
 <% end %>
-<% if node['foundationdb']['fdbserver']['memory'] != '' %>
+<% if node['foundationdb']['fdbserver']['memory'] and node['foundationdb']['fdbserver']['memory'] != '' %>
 memory = <%= node['foundationdb']['fdbserver']['memory'] %>
 <% end %>
-<% if node['foundationdb']['fdbserver']['storage_memory'] != '' %>
+<% if node['foundationdb']['fdbserver']['storage_memory'] and node['foundationdb']['fdbserver']['storage_memory'] != '' %>
 storage_memory = <%= node['foundationdb']['fdbserver']['storage_memory'] %>
 <% end %>
-<% node['foundationdb']['fdbserver']['knobs'].each do |knob| %>
-  <% if node['foundationdb']['fdbserver']['knobs'][knob] != '' %>
+<% node['foundationdb']['fdbserver']['knobs'].each_key do |knob| %>
+  <% if node['foundationdb']['fdbserver']['knobs'][knob] %>
 <%= knob %> = <%= node['foundationdb']['fdbserver']['knobs'][knob] %>
   <% end %>
 <% end %>
